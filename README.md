@@ -1,0 +1,1 @@
+## Speed meter for Sony Smart Watch 2 / Android

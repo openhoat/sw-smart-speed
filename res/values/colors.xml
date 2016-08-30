@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#FF000000</color>
+    <color name="unity">#FF777777</color>
+    <color name="speed">#FFFFFFFF</color>
+    <color name="maxSpeed">#FFFF0000</color>
+    <color name="avgSpeed">#FF00FF00</color>
+    
+</resources>

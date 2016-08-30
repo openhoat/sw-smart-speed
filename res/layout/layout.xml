@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/smart_watch_2_control_width"
+    android:layout_height="@dimen/smart_watch_2_control_height"
+    android:background="@android:color/black"
+    tools:ignore="ContentDescription,PxUsage" >
+
+    <LinearLayout
+        android:id="@+id/layoutSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textViewSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/speed"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
+            android:text="km/h"
+            android:textColor="@color/unity"
+            android:textSize="@dimen/smart_watch_2_text_size_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMaxSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutSpeed"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textViewMaxSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/maxSpeed"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
+            android:text="km/h"
+            android:textColor="@color/unity"
+            android:textSize="@dimen/smart_watch_2_text_size_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutAvgSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutMaxSpeed"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textViewAvgSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/avgSpeed"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
+            android:text="km/h"
+            android:textColor="@color/unity"
+            android:textSize="@dimen/smart_watch_2_text_size_small" />
+    </LinearLayout>
+
+</RelativeLayout>
