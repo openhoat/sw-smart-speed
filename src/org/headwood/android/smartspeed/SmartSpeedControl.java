@@ -1,6 +1,7 @@
 package org.headwood.android.smartspeed;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,12 +28,14 @@ class SmartSpeedControl extends ControlExtension implements LocationListener {
 	private final Context mContext;
 	private Location lastLocation;
 
-	private final float minDistance = 1f;
-	private final long minTime = 500l;
+	private final float minDistance = 3f;
+	private final long minTime = 1000l;
+	private int lastSpeed = -1;
 
 	private float totalDistance = 0f;
 	private long totalDuration = 0l;
 	private int maxSpeed = 0;
+	private int maxDeltaSpeed = 20;
 
 	SmartSpeedControl(final String hostAppPackageName, final Context context,
 			Handler handler) {
@@ -48,18 +51,22 @@ class SmartSpeedControl extends ControlExtension implements LocationListener {
 		if (lastLocation != null) {
 			final float distance = lastLocation.distanceTo(location);
 			final long duration = location.getTime() - lastLocation.getTime();
-			Log.d(SmartSpeedExtensionService.LOG_TAG, "done " + distance
-					+ " meters in " + duration + " ms");
-			totalDistance += distance;
-			totalDuration += duration;
 			final int speed = Math.round(distance / 1000
 					/ (duration / (1000f * 60 * 60)));
-			maxSpeed = Math.max(maxSpeed, speed);
-			final int avgSpeed = Math.round(totalDistance / 1000
-					/ (totalDuration / (1000f * 60 * 60)));
-			sendText(R.id.textViewSpeed, String.valueOf(speed));
-			sendText(R.id.textViewMaxSpeed, String.valueOf(maxSpeed));
-			sendText(R.id.textViewAvgSpeed, String.valueOf(avgSpeed));
+			Log.d(SmartSpeedExtensionService.LOG_TAG, "done " + distance
+					+ " meters in " + duration + " ms (speed : " + speed
+					+ " km/h)");
+			if (lastSpeed == -1 || Math.abs(speed - lastSpeed) <= maxDeltaSpeed) {
+				totalDistance += distance;
+				totalDuration += duration;
+				maxSpeed = Math.max(maxSpeed, speed);
+				final int avgSpeed = Math.round(totalDistance / 1000
+						/ (totalDuration / (1000f * 60 * 60)));
+				sendText(R.id.textViewSpeed, String.valueOf(speed));
+				sendText(R.id.textViewMaxSpeed, String.valueOf(maxSpeed));
+				sendText(R.id.textViewAvgSpeed, String.valueOf(avgSpeed));
+				lastSpeed = speed;
+			}
 		}
 		lastLocation = location;
 	}
@@ -83,8 +90,17 @@ class SmartSpeedControl extends ControlExtension implements LocationListener {
 		super.onStart();
 		final LocationManager locationManager = (LocationManager) mContext
 				.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				minTime, minDistance, this);
+		final Criteria criteria = new Criteria();
+		criteria.setPowerRequirement(Criteria.POWER_LOW);
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		criteria.setSpeedRequired(true);
+		criteria.setAltitudeRequired(false);
+		criteria.setBearingRequired(false);
+		criteria.setCostAllowed(false);
+		final String provider = locationManager.getBestProvider(criteria, true);
+		locationManager.requestLocationUpdates(provider, minTime, minDistance,
+				this);
+		lastLocation = locationManager.getLastKnownLocation(provider);
 		Log.d(SmartSpeedExtensionService.LOG_TAG, "started");
 	};
 
@@ -109,6 +125,9 @@ class SmartSpeedControl extends ControlExtension implements LocationListener {
 			maxSpeed = 0;
 			totalDistance = 0f;
 			totalDuration = 0l;
+			sendText(R.id.textViewSpeed, "--");
+			sendText(R.id.textViewMaxSpeed, "--");
+			sendText(R.id.textViewAvgSpeed, "--");
 		}
 		setScreenState(Control.Intents.SCREEN_STATE_AUTO);
 	}

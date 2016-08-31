@@ -10,13 +10,13 @@
         android:id="@+id/layoutSpeed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:gravity="center_vertical|center_horizontal" >
 
         <TextView
             android:id="@+id/textViewSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="--"
             android:textColor="@color/speed"
             android:textStyle="bold" />
 
@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:gravity="center_horizontal"
             android:text="km/h"
             android:textColor="@color/unity"
             android:textSize="@dimen/smart_watch_2_text_size_small" />
@@ -36,13 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutSpeed"
-        android:gravity="center_horizontal" >
+        android:gravity="center_vertical|center_horizontal" >
 
         <TextView
             android:id="@+id/textViewMaxSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="--"
             android:textColor="@color/maxSpeed"
             android:textStyle="bold" />
 
@@ -50,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:gravity="center_horizontal"
             android:text="km/h"
             android:textColor="@color/unity"
             android:textSize="@dimen/smart_watch_2_text_size_small" />
@@ -61,13 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutMaxSpeed"
-        android:gravity="center_horizontal" >
+        android:gravity="center_vertical|center_horizontal" >
 
         <TextView
             android:id="@+id/textViewAvgSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="--"
             android:textColor="@color/avgSpeed"
             android:textStyle="bold" />
 
@@ -75,7 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:gravity="center_horizontal"
             android:text="km/h"
             android:textColor="@color/unity"
             android:textSize="@dimen/smart_watch_2_text_size_small" />
